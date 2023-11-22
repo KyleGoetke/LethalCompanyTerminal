@@ -5,6 +5,7 @@ import sys
 import time
 from time import sleep
 
+
 def startscreen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -18,8 +19,7 @@ def startscreen():
     sleep(2)
     print("║     Detecting Heartbeats OK                       ║\n╚═══════════════════════════════════════════════════╝\n")
     sleep(1)
-    print()
-    print("UTGF Device Listening...\n")
+    print("\nUTGF Device Listening...\n")
 
     animation = "|/-\\"
     for i in range(50):
@@ -46,6 +46,7 @@ def startscreen():
     print("\nProgram Loaded\n")
     sleep(3)
 
+
 # global variables
 balance = 60
 route_cost = 0
@@ -65,7 +66,7 @@ known_creatures = {
     "Manticoil": "New",
     "Flowerman": "Known",
     "": ""
-    #TODO: ADD ALL CREATURES
+    # TODO: ADD ALL CREATURES
 }
 
 stored_items = []
@@ -97,6 +98,7 @@ price_list = {
     "cozy lights": 140
 }
 
+
 def getweather(weather):
     match weather:
         case "mild":
@@ -106,9 +108,10 @@ def getweather(weather):
         case "flood":
             return ["(Flooded)", "flooded"]
         case "eclipse":
-            return["(Eclipsed)", "eclipsed"]
+            return ["(Eclipsed)", "eclipsed"]
         case "fog":
-            return["(Foggy)", "foggy"]
+            return ["(Foggy)", "foggy"]
+
 
 def info(choice):
     #! MOONS
@@ -157,49 +160,50 @@ def info(choice):
         print("FAUNA: Dangerous entities have been rumored to take residence in the vast network of tunnels.\n")
     #! STORE ITEMS
     elif "walkie-talkie".startswith(choice):
-            print("Useful for keeping in touch! Hear other players when the walkie talkie is in your inventory. Must be in your hand and pressed down to transmit voice.")
+        print("Useful for keeping in touch! Hear other players when the walkie talkie is in your inventory. Must be in your hand and pressed down to transmit voice.")
     elif "flashlight".startswith(choice):
-            print("The most affordable light source. It's even waterproof!")
+        print("The most affordable light source. It's even waterproof!")
     elif "shovel".startswith(choice):
-            print("For self-defense!")
+        print("For self-defense!")
     elif "lockpicker".startswith(choice):
-            print("Lock-pickers will unlock your limitless potential for efficiency on the job. Powered by proprietary AI software, they will get you access through any locked door.")
+        print("Lock-pickers will unlock your limitless potential for efficiency on the job. Powered by proprietary AI software, they will get you access through any locked door.")
     elif "pro-flashlight".startswith(choice):
-            print("With an extra battery life and even brighter bulb, your colleagues can never leave you in the dark again!")
+        print("With an extra battery life and even brighter bulb, your colleagues can never leave you in the dark again!")
     elif "stun grenade".startswith(choice):
-            error()
+        error()
     elif "boombox".startswith(choice):
-            print("These jammong tunes are great for a morale boost on your crew!")
+        print("These jammong tunes are great for a morale boost on your crew!")
     elif "tzp-inhalant".startswith(choice):
-            print("This safe and legal medicine can be administered to see great benefits to your performance on the job! Your ability to move LONG distances while carrying HEFTY objects will be second to none. Warning: TZP gas may impact the brain with extended exposure. Follow instructions manual provided with the canister.\nDon't forge to share!")
+        print("This safe and legal medicine can be administered to see great benefits to your performance on the job! Your ability to move LONG distances while carrying HEFTY objects will be second to none. Warning: TZP gas may impact the brain with extended exposure. Follow instructions manual provided with the canister.\nDon't forge to share!")
     elif "zap gun".startswith(choice):
-            print("The most specialized self-protective equipment, capable of sending upwards of 80,000 volts!\n")
-            print("To keep it targeted as long as possible, pull the gun side-to-side to counter the bend and fight against the pull of the electric beam. It can only stun for as long as you keep the current flowing.")
+        print("The most specialized self-protective equipment, capable of sending upwards of 80,000 volts!\n")
+        print("To keep it targeted as long as possible, pull the gun side-to-side to counter the bend and fight against the pull of the electric beam. It can only stun for as long as you keep the current flowing.")
     elif "jetpack".startswith(choice):
-            print("This device will get you around anywhere! Just use it responsibly!")
+        print("This device will get you around anywhere! Just use it responsibly!")
     elif "extension ladder".startswith(choice):
-            print("This extension ladder can reach as high as nine meter! Use it to scale any cliff and reach for the stars. To save batteries the extension ladder automatically stores itself after 18 seconds.")
+        print("This extension ladder can reach as high as nine meter! Use it to scale any cliff and reach for the stars. To save batteries the extension ladder automatically stores itself after 18 seconds.")
     elif "radar-booster".startswith(choice):
-            print("Radar boosters come with many uses!\n")
-            print("""Use the "SWITCH" command before the radar booster's name to view it on the main monitor. It must be activated.""")
-            print("""Use the "PING" command before the radar booster's name to play a special sound from the device.""")
+        print("Radar boosters come with many uses!\n")
+        print("""Use the "SWITCH" command before the radar booster's name to view it on the main monitor. It must be activated.""")
+        print("""Use the "PING" command before the radar booster's name to play a special sound from the device.""")
     elif "loud horn".startswith(choice):
-            print("Used to communicate with any crew member from any distance, no walkie talkie required! The horn can be heard from anywhere. But what does it mean? That's up to you!")
+        print("Used to communicate with any crew member from any distance, no walkie talkie required! The horn can be heard from anywhere. But what does it mean? That's up to you!")
     elif "teleporter".startswith(choice):
-            print("Press the button to activate the teleporter. It will teleport whoever is currently being monitored on the ship's radar. They will not be able to keep any of their held items through the teleport. It takes about ten seconds to recharge.")
+        print("Press the button to activate the teleporter. It will teleport whoever is currently being monitored on the ship's radar. They will not be able to keep any of their held items through the teleport. It takes about ten seconds to recharge.")
     elif "inverse teleporter".startswith(choice):
-            print("The inverse teleporter is a modified teleporter which will teleport you to a random position outside the ship. All your items will be dropped at the teleporter before your transport. The inverse teleporter can be used by everyone at once andhas a 3.5 minute cooldown.\n")
-            print("DISCLAIMER: The inverse teleporter can only transport you out, not in, and you may become trapped. The Company is not responsible for injury or replacement of heads and limbs induced by quantum entanglement and bad luck.")
+        print("The inverse teleporter is a modified teleporter which will teleport you to a random position outside the ship. All your items will be dropped at the teleporter before your transport. The inverse teleporter can be used by everyone at once andhas a 3.5 minute cooldown.\n")
+        print("DISCLAIMER: The inverse teleporter can only transport you out, not in, and you may become trapped. The Company is not responsible for injury or replacement of heads and limbs induced by quantum entanglement and bad luck.")
     #! Creatures
     elif "manticoils".startswith(choice):
-            print("Manticoils\n")
-            print("Sigurd's danger level: 0%\n")
-            print("Scientific name Quadrupes-manta\nMantacoils are a passerine bird of the family corvidae. Their bodies are quite large compared to their early descendants, and their wingspan ranges from 55 to 64 inches. Their most defining characteristic is their set of four wings. Their back wings are mostly used to stabilize when at low speed, while their front two wings create the majority of lift. Their round bodies are a striking yellow but with black outlines or stripes along their primary (rear) feathers.\n")
-            print("Manticoils mostly feed on small insects but can also feed on small rodents. They are highly intelligent and social. They pose little threat and have a generally passive temperament towards humans, although they are capable of transmitting Rabies, Rubenchloria, and Pitt Virus.\n")
+        print("Manticoils\n")
+        print("Sigurd's danger level: 0%\n")
+        print("Scientific name Quadrupes-manta\nMantacoils are a passerine bird of the family corvidae. Their bodies are quite large compared to their early descendants, and their wingspan ranges from 55 to 64 inches. Their most defining characteristic is their set of four wings. Their back wings are mostly used to stabilize when at low speed, while their front two wings create the majority of lift. Their round bodies are a striking yellow but with black outlines or stripes along their primary (rear) feathers.\n")
+        print("Manticoils mostly feed on small insects but can also feed on small rodents. They are highly intelligent and social. They pose little threat and have a generally passive temperament towards humans, although they are capable of transmitting Rabies, Rubenchloria, and Pitt Virus.\n")
     elif "x".startswith(choice):
         print("x")
     else:
         error()
+
 
 def store():
     global price_list
@@ -228,6 +232,7 @@ def store():
     print(f"Shower  //  ▘{price_list['shower']}")
     print(f"Cozy lights  //  ▘{price_list['cozy lights']}\n")
 
+
 def buy(choice, quantity):
     global balance
     if not quantity.isdigit():
@@ -252,9 +257,11 @@ def buy(choice, quantity):
                 else:
                     buy(choice, quantity)
 
+
 def clearscreen():
     os.system('cls' if os.name == 'nt' else 'clear')
     print(f"▘{balance}\n\n")
+
 
 def bestiary():
     global known_creatures
@@ -269,7 +276,8 @@ def bestiary():
                 known_creatures[creature] = "Known"
             elif known_creatures[creature] == "Known":
                 print(creature)
-        print()
+        print("")
+
 
 def route(destination):
     if "company".startswith(destination):
@@ -309,6 +317,7 @@ def route(destination):
     print(f"It is currently {moon_weather} on this moon.\n\n")
     confirmroute(destination, moon_id, 1)
 
+
 def confirmroute(destination, moon_id, bal_check):
     global current_location
     global balance
@@ -330,6 +339,7 @@ def confirmroute(destination, moon_id, bal_check):
     else:
         route(destination)
 
+
 def storage():
     global stored_items
     print("While moving furniture with [B], you an pres [X] to send it to storage. You can call it back from storage here.\n")
@@ -340,9 +350,11 @@ def storage():
         for item in stored_items:
             print(item)
 
+
 def error():
     clearscreen()
     print("[There was no action supplied with the word]\n")
+
 
 try:
     startscreen()
@@ -425,7 +437,7 @@ while True:
         case ["ping", booster_name]:
             if booster_name in radar_boosters:
                 print(f"{booster_name}")
-                #TODO, NO CLUE ABOUT FUNCTIONALITY
+                # TODO, NO CLUE ABOUT FUNCTIONALITY
             else:
                 error()
 
