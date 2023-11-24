@@ -3,7 +3,8 @@ WIP recreation of the terminal system from the game [Lethal Company](https://sto
 
 ### To-Do:
 - [ ] PING radar boosters
-- [ ] Add all creatures to INFO
+- [x] Add all creatures to INFO
+- [x] Move INFO results to text files
 - [ ] Finish discount price system
 - [ ] Add utility functions
     - [X] ADD - adds n value to crew balance
