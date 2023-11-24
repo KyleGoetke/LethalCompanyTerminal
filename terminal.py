@@ -87,7 +87,7 @@ stored_items = []
 
 radar_boosters = []
 
-current_players = {
+employees = {
     "player": "alive",
     "username1": "alive",
     "Individual2": "alive",
@@ -498,7 +498,7 @@ while True:
 
         case ["switch", switch_target]:
             valid_name = False
-            for name in current_players:
+            for name in employees:
                 if name.lower().startswith(switch_target.lower()):
                     clearscreen()
                     print(f"Switched radar to {name}.\n")
