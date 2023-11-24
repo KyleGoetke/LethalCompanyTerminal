@@ -14,7 +14,7 @@ WIP recreation of the terminal system from the game [Lethal Company](https://sto
       - [ ] Collect loot of n value
           - [ ] Loot value table?
       - [ ] Dead crew + fines
-          - [ ] Change crew tracker to dict with living/dead status
+          - [X] Change crew tracker to dict with living/dead status
       - [ ] New creatures discovered
 
 Disclaimer: No copyright infringement intended
