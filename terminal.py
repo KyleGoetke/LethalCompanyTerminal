@@ -2,12 +2,12 @@ from datetime import datetime
 import os
 import random
 import sys
-import time
+import textwrap
 from time import sleep
 
 
 def startscreen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
 
     print("╔═══════════════════════════════════════════════════╗\n║  BG IG, A System-Act Ally                         ║\n║  Copyright(C) 2084-2108, Halden Electronics Inc.  ║\n╚═══════════════════════════════════════════════════╝", end="\r")
     sleep(1.5)
@@ -23,7 +23,7 @@ def startscreen():
 
     animation = "|/-\\"
     for i in range(50):
-        time.sleep(0.1)
+        sleep(0.1)
         sys.stdout.write("\r" + animation[i % len(animation)])
         sys.stdout.flush()
 
@@ -43,13 +43,14 @@ def startscreen():
     sleep(0.75)
     print("0")
     sleep(1)
-    print("\nProgram Loaded\n")
+    print("\nOS Loaded\n")
     sleep(3)
 
 
 # global variables
 balance = 60
 route_cost = 0
+purchased_items = 0
 current_location = ""
 experimentation_weather = random.choice(["mild", "rain", "flood", "eclipse", "fog"])
 assurance_weather = random.choice(["mild", "rain", "flood", "eclipse", "fog"])
@@ -60,20 +61,39 @@ rend_weather = random.choice(["mild", "rain", "flood", "eclipse", "fog"])
 dine_weather = random.choice(["mild", "rain", "flood", "eclipse", "fog"])
 titan_weather = random.choice(["mild", "rain", "flood", "eclipse", "fog"])
 company_rate = 0.3
+terminal_max_width = 160
 
 known_creatures = {
-    "Locusts": "Unknown",
-    "Manticoil": "New",
-    "Flowerman": "Known",
-    "": ""
-    # TODO: ADD ALL CREATURES
+    "baboon hawks": "Unknown",
+    "brakens": "Unknown",
+    "bunker spiders": "Unknown",
+    "circuit bees": "Unknown",
+    "coil-heads": "Unknown",
+    "earth leviathans": "Unknown",
+    "eyeless dogs": "Unknown",
+    "forest keepers": "Unknown",
+    "hoarding bugs": "Unknown",
+    "hygroderes": "Unknown",
+    "jesters": "Unknown",
+    "lasso man": "Unknown",
+    "manticoils": "Unknown",
+    "roaming locusts": "Unknown",
+    "snare fleas": "Unknown",
+    "spore lizards": "Unknown",
+    "thumpers": "Unknown"
 }
 
 stored_items = []
 
 radar_boosters = []
 
-current_players = ["player", "username1", "Individual2", "Company_Intern", "VIP"]
+current_players = {
+    "player": "alive",
+    "username1": "alive",
+    "Individual2": "alive",
+    "Company_Intern": "dead",
+    "VIP": "alive"
+}
 
 price_list = {
     "walkie-talkie": 12,
@@ -114,95 +134,144 @@ def getweather(weather):
 
 
 def info(choice):
+    global terminal_max_width
     #! MOONS
-    if "company".startswith(choice):
+    if "assurance".startswith(choice):
+        with open("moons/assurance.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "company".startswith(choice):
         print(f"The Company is buying your goods at {int(company_rate * 100)}%\n")
         print("Go here to drop off any valuable scrap you've collected while on the job. The rate of return updates hourly and fluctuates over the course of several days.")
-    elif "experimentation".startswith(choice):
-        print("41-Experimentation\n----------------------\n")
-        print("CONDITIONS: Arid. Low habitability, worsened by industrial artifacts.\n")
-        print("HISTORY: Not discovered for quite some time due to its close orbit around gas giant Big Grin. However it appears to have been used in secret.\n")
-        print("FAUNA: Unknown\n")
-    elif "assurance".startswith(choice):
-        print("220-Assurance\n----------------------\n")
-        print("CONDITIONS: Similar to its twin moon, 41-Experimentation, featuring far more jagged and weathered terrain.\n")
-        print("HISTORY: 220-Assurance is far younger than its counterpart. Discovered not long before 41-Experimentation.\n")
-        print("FAUNA: Unknown\n")
-    elif "vow".startswith(choice):
-        print("56-Vow\n----------------------\n")
-        print("CONDITIONS: Humid\n")
-        print("HISTORY: Vow appears to have been inhabited by several colonies across its continents, but there is now no sign of life, and they have become a mystery.\n")
-        print("FAUNA: Diverse, teeming with plant-life.\n")
-    elif "offense".startswith(choice):
-        print("21-Offense\n----------------------\n")
-        print("CONDITIONS: Believed to have splintered of from its cousin Assurance, Offense features similar jagged and dry conditions but differs in its ecosystem.\n")
-        print("HISTORY: 21-Offense is categorized as an asteroid moon and seems to have not existed on its own for more than several hundred years. The industrial artifacts here have suffered damage; it's believed they were built long before 21-Offense was splintered off.\n")
-        print("FAUNA: A competitive and toughened ecosystem supports aggressive lifeforms. Travellers to 21-Offense should know it's not for the faint of heart.\n")
-    elif "march".startswith(choice):
-        print("61-March\n----------------------\n")
-        print("CONDITIONS: March undergoes constant drizzling weather. Its terrain is more expansive.\n")
-        print("HISTORY: This moon is overlooked due to its twin moon, Vow.\n")
-        print("FAUNA: Unknown\n")
-    elif "rend".startswith(choice):
-        print("85-Rend\n----------------------\n")
-        print("CONDITIONS: Its planet orbits a white dwarf star, making for inhospitale, cold conditions. Constant blizzards decrease visibility.\n")
-        print("HISTORY: Several famous travelers went missing here, giving it some reputation. Their bodies are unlikely to be found due to the planet's conditions.\n")
-        print("FAUNA: It's highly unlikely for complex life to exist here.\n")
     elif "dine".startswith(choice):
-        print("7-Dine\n----------------------\n")
-        print("CONDITIONS: Its planet orbits a white dwarf star, making for inhospitale, cold conditions. Constant blizzards decrease visibility.\n")
-        print("HISTORY: Several famous travelers went missing here, giving it some reputation. Their bodies are unlikely to be found due to the planet's conditions.\n")
-        print("FAUNA: It's highly unlikely for complex life to exist here.\n")
+        with open("moons/dine.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "experimentation".startswith(choice):
+        with open("moons/experimentation.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "march".startswith(choice):
+        with open("moons/march.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "offense".startswith(choice):
+        with open("moons/offense.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "rend".startswith(choice):
+        with open("moons/rend.txt", "r") as f:
+            file_contents = f.readlines()
     elif "titan".startswith(choice):
-        print("8-Titan\n----------------------\n")
-        print("CONDITIONS: A frozen, flat landscape.\n")
-        print("HISTORY: It looks like this moon was mined for resources. It's easy to get lost within the giant industrial complex. There are many entrances to it littered about the landscape.\n")
-        print("FAUNA: Dangerous entities have been rumored to take residence in the vast network of tunnels.\n")
+        with open("moons/titan.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "vow".startswith(choice):
+        with open("moons/vow.txt", "r") as f:
+            file_contents = f.readlines()
     #! STORE ITEMS
-    elif "walkie-talkie".startswith(choice):
-        print("Useful for keeping in touch! Hear other players when the walkie talkie is in your inventory. Must be in your hand and pressed down to transmit voice.")
-    elif "flashlight".startswith(choice):
-        print("The most affordable light source. It's even waterproof!")
-    elif "shovel".startswith(choice):
-        print("For self-defense!")
-    elif "lockpicker".startswith(choice):
-        print("Lock-pickers will unlock your limitless potential for efficiency on the job. Powered by proprietary AI software, they will get you access through any locked door.")
-    elif "pro-flashlight".startswith(choice):
-        print("With an extra battery life and even brighter bulb, your colleagues can never leave you in the dark again!")
-    elif "stun grenade".startswith(choice):
-        error()
     elif "boombox".startswith(choice):
-        print("These jammong tunes are great for a morale boost on your crew!")
-    elif "tzp-inhalant".startswith(choice):
-        print("This safe and legal medicine can be administered to see great benefits to your performance on the job! Your ability to move LONG distances while carrying HEFTY objects will be second to none. Warning: TZP gas may impact the brain with extended exposure. Follow instructions manual provided with the canister.\nDon't forge to share!")
-    elif "zap gun".startswith(choice):
-        print("The most specialized self-protective equipment, capable of sending upwards of 80,000 volts!\n")
-        print("To keep it targeted as long as possible, pull the gun side-to-side to counter the bend and fight against the pull of the electric beam. It can only stun for as long as you keep the current flowing.")
-    elif "jetpack".startswith(choice):
-        print("This device will get you around anywhere! Just use it responsibly!")
+        with open("items/boombox.txt", "r") as f:
+            file_contents = f.readlines()
     elif "extension ladder".startswith(choice):
-        print("This extension ladder can reach as high as nine meter! Use it to scale any cliff and reach for the stars. To save batteries the extension ladder automatically stores itself after 18 seconds.")
-    elif "radar-booster".startswith(choice):
-        print("Radar boosters come with many uses!\n")
-        print("""Use the "SWITCH" command before the radar booster's name to view it on the main monitor. It must be activated.""")
-        print("""Use the "PING" command before the radar booster's name to play a special sound from the device.""")
-    elif "loud horn".startswith(choice):
-        print("Used to communicate with any crew member from any distance, no walkie talkie required! The horn can be heard from anywhere. But what does it mean? That's up to you!")
-    elif "teleporter".startswith(choice):
-        print("Press the button to activate the teleporter. It will teleport whoever is currently being monitored on the ship's radar. They will not be able to keep any of their held items through the teleport. It takes about ten seconds to recharge.")
+        with open("items/extension_ladder.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "flashlight".startswith(choice):
+        with open("items/flashlight.txt", "r") as f:
+            file_contents = f.readlines()
     elif "inverse teleporter".startswith(choice):
-        print("The inverse teleporter is a modified teleporter which will teleport you to a random position outside the ship. All your items will be dropped at the teleporter before your transport. The inverse teleporter can be used by everyone at once andhas a 3.5 minute cooldown.\n")
-        print("DISCLAIMER: The inverse teleporter can only transport you out, not in, and you may become trapped. The Company is not responsible for injury or replacement of heads and limbs induced by quantum entanglement and bad luck.")
+        with open("items/inverse_teleporter.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "jetpack".startswith(choice):
+        with open("items/jetpack.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "lockpicker".startswith(choice):
+        with open("items/lockpicker.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "loud horn".startswith(choice):
+        with open("items/loud_horn.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "pro-flashlight".startswith(choice):
+        with open("items/pro_flashlight.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "radar-booster".startswith(choice):
+        with open("items/radar_booster.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "shovel".startswith(choice):
+        with open("items/shovel.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "stun grenade".startswith(choice):
+        try:
+            with open("items/stun_grenade.txt", "r") as f:
+                file_contents = f.readlines()
+        except FileNotFoundError:
+            file_contents = ""
+            error()
+    elif "teleporter".startswith(choice):
+        with open("items/teleporter.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "tzp-inhalant".startswith(choice):
+        with open("items/tzp_inhalant.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "walkie-talkie".startswith(choice):
+        with open("items/walkie_talkie.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "zap gun".startswith(choice):
+        with open("items/zap_gun.txt", "r") as f:
+            file_contents = f.readlines()
     #! Creatures
+    elif "baboon hawks".startswith(choice):
+        with open("creatures/baboon_hawks.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "brakens".startswith(choice):
+        with open("creatures/brakens.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "bunker spiders".startswith(choice):
+        with open("creatures/bunker_spiders.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "circuit bees".startswith(choice):
+        with open("creatures/circuit_bees.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "coil heads".startswith(choice):
+        with open("creatures/coil_heads.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "earth leviathans".startswith(choice):
+        with open("creatures/earth_leviathans.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "eyeless dogs".startswith(choice):
+        with open("creatures/eyeless_dogs.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "forest keepers".startswith(choice):
+        with open("creatures/forest_keepers.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "hoarding bugs".startswith(choice):
+        with open("creatures/hoarding_bugs.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "hygroderes".startswith(choice):
+        with open("creatures/hygroderes.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "jesters".startswith(choice):
+        with open("creatures/jesters.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "lasso man".startswith(choice) or "lasso men".startswith(choice):
+        with open("creatures/lasso_man.txt", "r") as f:
+            file_contents = f.readlines()
     elif "manticoils".startswith(choice):
-        print("Manticoils\n")
-        print("Sigurd's danger level: 0%\n")
-        print("Scientific name Quadrupes-manta\nMantacoils are a passerine bird of the family corvidae. Their bodies are quite large compared to their early descendants, and their wingspan ranges from 55 to 64 inches. Their most defining characteristic is their set of four wings. Their back wings are mostly used to stabilize when at low speed, while their front two wings create the majority of lift. Their round bodies are a striking yellow but with black outlines or stripes along their primary (rear) feathers.\n")
-        print("Manticoils mostly feed on small insects but can also feed on small rodents. They are highly intelligent and social. They pose little threat and have a generally passive temperament towards humans, although they are capable of transmitting Rabies, Rubenchloria, and Pitt Virus.\n")
-    elif "x".startswith(choice):
-        print("x")
+        with open("creatures/manticoils.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "roaming locusts".startswith(choice):
+        with open("creatures/roaming_locusts.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "snare fleas".startswith(choice):
+        with open("creatures/snare_fleas.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "spore lizards".startswith(choice):
+        with open("creatures/spore_lizards.txt", "r") as f:
+            file_contents = f.readlines()
+    elif "thumpers".startswith(choice):
+        with open("creatures/thumpers.txt", "r") as f:
+            file_contents = f.readlines()
     else:
         error()
+        return
+    for line in file_contents:
+        print(textwrap.fill(line, terminal_max_width))
+    if not file_contents == "":
+        print("")
 
 
 def store():
@@ -235,6 +304,7 @@ def store():
 
 def buy(choice, quantity):
     global balance
+    global purchased_items
     if not quantity.isdigit():
         quantity = 1
     quantity = int(quantity)
@@ -251,6 +321,7 @@ def buy(choice, quantity):
                     balance = balance - price
                     clearscreen()
                     print(f"Ordered {quantity} {item}s. Your new balance is ▘{balance}.\n")
+                    purchased_items += quantity
                     print("Our contractors enjoy fast, free shipping while on the job! Any purchased items will arrive hourly at your approximate location.\n")
                 elif "deny".startswith(option):
                     print("\nCancelled order.\n\n")
@@ -259,14 +330,14 @@ def buy(choice, quantity):
 
 
 def clearscreen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
     print(f"▘{balance}\n\n")
 
 
 def bestiary():
     global known_creatures
     print("BESTIARY\n")
-    print('To access a creature file, type "INFO" after its name.\n---------------------------------\n')
+    print("To access a creature file, type \"INFO\" after its name.\n---------------------------------\n")
     if all(value == "Unknown" for value in known_creatures.values()):
         print("No data collected on wildlife. Scans are required.\n")
     else:
@@ -356,6 +427,7 @@ def error():
     print("[There was no action supplied with the word]\n")
 
 
+# Main execution loop
 try:
     startscreen()
 except KeyboardInterrupt:
@@ -364,7 +436,7 @@ clearscreen()
 print("Welcome to the FORTUNE-9 OS")
 print("          Courtesy of the Company\n")
 print(f"Happy {datetime.today().strftime('%A')}.\n")
-print('Type "Help" for a list of commands.\n\n\n')
+print("Type \"Help\" for a list of commands.\n\n\n")
 
 while True:
     choice = input("").lower()
@@ -431,6 +503,11 @@ while True:
                     clearscreen()
                     print(f"Switched radar to {name}.\n")
                     valid_name = True
+            for name in radar_boosters:
+                if name.lower().startswith(switch_target.lower()):
+                    clearscreen()
+                    print(f"Switched radar to {name}.\n")
+                    valid_name = True
             if valid_name == False:
                 error()
 
@@ -456,10 +533,12 @@ while True:
             print(">BESTIARY\nTo see the list of wildlife on record.\n")
             print(">STORAGE\nTo access objects placed into storage.\n")
             print(">OTHER\nTo see the list of other commands\n")
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if "xyz" == "xyz":
-                print(f"{'1'} purchased items on route.\n")
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if purchased_items > 1:
+                print(f"{purchased_items} purchased items on route.\n")
+                purchased_items = 0
+            elif purchased_items > 0:
+                print(f"{purchased_items} purchased item on route.\n")
+                purchased_items = 0
 
         case ["exit"] | ["q"]:
             print("")
@@ -467,7 +546,6 @@ while True:
 
         case ["add", value]:
             balance += int(value)
-            # clearscreen()
             print(f"\nNew balance is ▘{balance}.\n")
 
         case _:
